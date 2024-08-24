@@ -1,0 +1,34 @@
+<main>
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Current Temperatures</h2>
+        <p>{{ currentDate | date:'medium'}}</p>
+      </div>
+    </header>
+    <p>New York: {{ currentTemperaturs.newYork | number:'1.1-2' | temperature:'cel':'fah' }}</p>
+    <!-- chaining of the pipes is also possible -->
+    <p>Berlin: {{ currentTemperaturs.berlin | temperature:'fah':'cel'}}</p>
+    <p>Paris: {{ currentTemperaturs.paris | temperature:'fah'}}</p>
+    <p>Chicago: {{ currentTemperaturs.chicago | temperature:'cel'}}</p>
+  </article>
+
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Historic Temperatures</h2>
+        <p>Berlin</p>
+      </div>
+    </header>
+    <ul>
+      <!-- pipe can also be used here, wherever the dynamic value is getting printed on DOM -->
+      @for(temperature of historicTemperatures | sort; track temperature) {
+      <li (click)="onReset($index)">{{ temperature| temperature:'cel'}}</li>
+      }
+    </ul>
+  </article>
+</main>
+
+<!-- the click event will not be operational in the list when we added a pipe. -->
